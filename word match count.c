@@ -41,6 +41,27 @@ int main()
 	for(most_match_i_final;a[most_match_i_final]!=' '&&a[most_match_i_final]!='\n';most_match_i_final++){
 		printf("%c",a[most_match_i_final]);
 	}
+	most_match_i_final-=most_match_t_final;
+	printf("\n");
+	for(i=0;i<n;i++){
+		flag=0;
+		if(a[i]==a[most_match_i_final]){
+			for(j=most_match_i_final;a[i]!=' '&& a[i]!='\n';j++){
+				if(a[i]==a[j]){
+					++flag;
+					++i;
+				}
+				else{
+					i-=flag;
+					flag=-1;
+					break;
+				}
+			}
+		}
+		if(flag >0 && a[i]==' ')
+			++i;
+		printf("%c",a[i]);
+	}
 	return;
 }
 int match_word(int i,int j)

@@ -1,7 +1,8 @@
 #include<stdio.h>
 int match_word(int i,int j);
-char a[1000];
-int n,matching=0;
+char a[1000],p[1000];
+int n,matching=0,most_match_i=0,most_match_j=0,most_match_t=0,most_match_temp=0,
+most_match_final=0,most_match_i_final,most_match_t_final;
 int main()
 {
 	int i,j,flag=0,b[10];
@@ -36,6 +37,10 @@ int main()
 		//break;
 	}
 	printf("\nMatching word count = %d",matching);
+	printf("\nMost repeating word\n");
+	for(most_match_i_final;a[most_match_i_final]!=' '&&a[most_match_i_final]!='\n';most_match_i_final++){
+		printf("%c",a[most_match_i_final]);
+	}
 	return;
 }
 int match_word(int i,int j)
@@ -66,10 +71,28 @@ int match_word(int i,int j)
 	if((temp==temp_1)&&(temp==temp_2)){
 	//	printf("\n%d %d %d--> Matching",temp,temp_1,temp_2);
 		++matching;
+		i-=temp;
+		j-=temp;
+		check_most_match(i,temp,j);//push matched word to array
 	}
 		
 	else{
 	//	printf("\nNot matching");
 	//	printf("\n%d %d %d--> NOT Matched",temp,temp_1,temp_2);
+	}
+}
+int check_most_match(int i, int temp,int j)
+{
+	if(most_match_i == i && most_match_t ==temp){
+		most_match_temp++;
+	}
+	else{
+		most_match_i=i;
+		most_match_t=temp;
+	}
+	if(most_match_temp>most_match_final){
+		most_match_final=most_match_temp;
+		most_match_i_final=i;
+		most_match_t_final=temp;
 	}
 }
